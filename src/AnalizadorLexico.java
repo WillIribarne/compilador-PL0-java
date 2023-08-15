@@ -62,7 +62,7 @@ public class AnalizadorLexico {
                     construyeCadYDevuelveChar(sb);
                 }
             }
-            s = nodosTerminales.get(cad);
+            s = nodosTerminales.get(cad.toUpperCase());
             if (s == null){
                 c = cad.charAt(0);
                 if (c == '\'' && cad.charAt(cad.length() - 1) == '\''){
