@@ -1,17 +1,19 @@
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class AnalizadorLexico {
-    private BufferedReader br;
+    private final BufferedReader br;
     private Terminal s;
     private String cad;
     private String listado;
     private String restante;
     private int numLinea;
-
+    private HashMap<String, Terminal> nodosTerminales;
 
     public AnalizadorLexico(BufferedReader br) {
         this.br = br;
+        cargaHashMapNodosTerminales();
     }
 
     public void escanear() throws IOException {
@@ -27,135 +29,48 @@ public class AnalizadorLexico {
             }
         }
         if (restante != null && !restante.isEmpty()) {
+            s = null;
             StringBuilder sb = new StringBuilder();
-            char c;
-            c = restante.charAt(0);
-            while (c == ' ' || c == 9){
-                cortarRestante();
-                c = restante.charAt(0);
-            }
-            sb.append(c);
-            cad = sb.toString();
-            cortarRestante();
+            char c = construyeCadYDevuelveChar(sb);
             if (Character.isLetter(c)){
                 while (!restante.isEmpty() && Character.isLetter(restante.charAt(0))){
-                    c = restante.charAt(0);
-                    sb.append(c);
-                    cad = sb.toString();
-                    cortarRestante();
-                }
-                if (cad.equalsIgnoreCase("IF")){ //modificar por un hashmap
-                    s = Terminal.IF;
-                } else if (cad.equalsIgnoreCase("CALL")){
-                    s = Terminal.CALL;
-                } else if (cad.equalsIgnoreCase("WRITELN")){
-                    s = Terminal.WRITELN;
-                } else if (cad.equalsIgnoreCase("WRITE")){
-                    s = Terminal.WRITE;
-                } else if (cad.equalsIgnoreCase("READLN")){
-                    s = Terminal.READLN;
-                } else if (cad.equalsIgnoreCase("CONST")){
-                    s = Terminal.CONST;
-                } else if (cad.equalsIgnoreCase("VAR")){
-                    s = Terminal.VAR;
-                } else if (cad.equalsIgnoreCase("PROCEDURE")){
-                    s = Terminal.PROCEDURE;
-                } else if (cad.equalsIgnoreCase("BEGIN")){
-                    s = Terminal.BEGIN;
-                } else if (cad.equalsIgnoreCase("END")){
-                    s = Terminal.END;
-                } else if (cad.equalsIgnoreCase("THEN")){
-                    s = Terminal.THEN;
-                } else if (cad.equalsIgnoreCase("WHILE")){
-                    s = Terminal.WHILE;
-                } else if (cad.equalsIgnoreCase("DO")){
-                    s = Terminal.DO;
-                } else if (cad.equalsIgnoreCase("ODD")){
-                    s = Terminal.ODD;
-                } else {
-                    s = Terminal.IDENTIFICADOR;
+                    construyeCadYDevuelveChar(sb);
                 }
             } else if (Character.isDigit(c)){
                 while (!restante.isEmpty() && Character.isDigit(restante.charAt(0))){
-                    c = restante.charAt(0);
-                    sb.append(c);
-                    cad = sb.toString();
-                    cortarRestante();
-                }
-                if (cad.charAt(0) == '0' && cad.length() > 1){
-                    s = Terminal.NULO; // numero empieza con 0 (ej 056)
-                } else {
-                    s = Terminal.NUMERO;
+                    construyeCadYDevuelveChar(sb);
                 }
             } else if (c == '\''){
-                while ((!restante.isEmpty() && restante.charAt(0) != '\'')){
-                    c = restante.charAt(0);
-                    sb.append(c);
-                    cad = sb.toString();
-                    cortarRestante();
-                }
+                do {
+                    c = construyeCadYDevuelveChar(sb);
+                } while ((!restante.isEmpty() && c != '\''));
                 if (restante.charAt(0) == '\'' && cad.length() > 1){
-                    c = restante.charAt(0);
-                    sb.append(c);
-                    cad = sb.toString();
-                    cortarRestante();
-                    s = Terminal.CADENA_LITERAL;
-                } else {
-                    s = Terminal.NULO; //empieza con ' pero nunca se cierran
+                    construyeCadYDevuelveChar(sb);
                 }
-            } else if (c == '='){
-                s = Terminal.IGUAL;
             } else if (c == '<'){
                 if (restante.charAt(0) == '='){
-                    s = Terminal.MENOR_IGUAL;
-                    c = restante.charAt(0);
-                    sb.append(c);
-                    cad = sb.toString();
-                    cortarRestante();
+                    construyeCadYDevuelveChar(sb);
                 } else if (restante.charAt(0) == '>'){
-                    s = Terminal.DISTINTO;
-                    c = restante.charAt(0);
-                    sb.append(c);
-                    cad = sb.toString();
-                    cortarRestante();
-                } else {
-                    s = Terminal.MENOR;
+                    construyeCadYDevuelveChar(sb);
                 }
             } else if (c == '>'){
                 if (restante.charAt(0) == '='){
-                    s = Terminal.MAYOR_IGUAL;
-                    c = restante.charAt(0);
-                    sb.append(c);
-                    cad = sb.toString();
-                    cortarRestante();
-                } else {
-                    s = Terminal.MAYOR;
+                    construyeCadYDevuelveChar(sb);
                 }
-            } else if (c == '('){
-                s = Terminal.ABRE_PARENTESIS;
-            } else if (c == ')'){
-                s = Terminal.CIERRA_PARENTESIS;
-            } else if (c == '+') {
-                s = Terminal.MAS;
-            } else if (c == '-'){
-                s = Terminal.MENOS;
-            } else if (c == '*'){
-                s = Terminal.POR;
-            } else if (c == '/'){
-                s = Terminal.DIVIDIDO;
-            } else if (c == '.'){
-                s = Terminal.PUNTO;
-            } else if (c == ';'){
-                s = Terminal.PUNTO_Y_COMA;
-            } else if (c == ','){
-                s = Terminal.COMA;
             } else if (c == ':'){
                 if (restante.charAt(0) == '='){
-                    s = Terminal.ASIGNACION;
-                    c = restante.charAt(0);
-                    sb.append(c);
-                    cad = sb.toString();
-                    cortarRestante();
+                    construyeCadYDevuelveChar(sb);
+                }
+            }
+            s = nodosTerminales.get(cad);
+            if (s == null){
+                c = cad.charAt(0);
+                if (c == '\'' && cad.charAt(cad.length() - 1) == '\''){
+                    s = Terminal.CADENA_LITERAL;
+                } else if (Character.isDigit(c) && !(c == 0 && cad.length() > 1)){
+                    s = Terminal.NUMERO;
+                } else if (Character.isLetter(c)){
+                    s = Terminal.IDENTIFICADOR;
                 } else {
                     s = Terminal.NULO;
                 }
@@ -177,5 +92,51 @@ public class AnalizadorLexico {
 
     public String getCad() {
         return cad;
+    }
+
+    private void cargaHashMapNodosTerminales(){
+        this.nodosTerminales = new HashMap<>();
+        nodosTerminales.put("IF", Terminal.IF);
+        nodosTerminales.put("CALL", Terminal.CALL);
+        nodosTerminales.put("WRITELN", Terminal.WRITELN);
+        nodosTerminales.put("WRITE", Terminal.WRITE);
+        nodosTerminales.put("READLN", Terminal.READLN);
+        nodosTerminales.put("CONST", Terminal.CONST);
+        nodosTerminales.put("VAR", Terminal.VAR);
+        nodosTerminales.put("PROCEDURE", Terminal.PROCEDURE);
+        nodosTerminales.put("BEGIN", Terminal.BEGIN);
+        nodosTerminales.put("END", Terminal.END);
+        nodosTerminales.put("THEN", Terminal.THEN);
+        nodosTerminales.put("DO", Terminal.DO);
+        nodosTerminales.put("WHILE", Terminal.WHILE);
+        nodosTerminales.put("ODD", Terminal.ODD);
+        nodosTerminales.put("=", Terminal.IGUAL);
+        nodosTerminales.put(">", Terminal.MAYOR);
+        nodosTerminales.put("<", Terminal.MENOR);
+        nodosTerminales.put(">=", Terminal.MAYOR_IGUAL);
+        nodosTerminales.put("<=", Terminal.MENOR_IGUAL);
+        nodosTerminales.put("<>", Terminal.DISTINTO);
+        nodosTerminales.put("(", Terminal.ABRE_PARENTESIS);
+        nodosTerminales.put(")", Terminal.CIERRA_PARENTESIS);
+        nodosTerminales.put("+", Terminal.MAS);
+        nodosTerminales.put("-", Terminal.MENOS);
+        nodosTerminales.put("*", Terminal.POR);
+        nodosTerminales.put("/", Terminal.DIVIDIDO);
+        nodosTerminales.put(".", Terminal.PUNTO);
+        nodosTerminales.put(";", Terminal.PUNTO_Y_COMA);
+        nodosTerminales.put(",", Terminal.COMA);
+        nodosTerminales.put(":=", Terminal.ASIGNACION);
+    }
+
+    private char construyeCadYDevuelveChar(StringBuilder sb){
+        char c = restante.charAt(0);
+        while ((c == ' ' && cad.charAt(0) != '\'') || (c == 9 && cad.charAt(0) != '\'')){
+            cortarRestante();
+            c = restante.charAt(0);
+        }
+        sb.append(c);
+        cad = sb.toString();
+        cortarRestante();
+        return c;
     }
 }
