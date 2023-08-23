@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9997f55b-5b16-4333-a230-cece57a5db86" name="Changes" comment="Analizador Lexico simplificado">
+    <list default="true" id="9997f55b-5b16-4333-a230-cece57a5db86" name="Changes" comment="Analizador Lexico completado">
+      <change afterPath="$PROJECT_DIR$/src/AnalizadorSintactico.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/IndicadorDeErrores.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,8 +15,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -65,7 +68,14 @@
       <workItem from="1691528369140" duration="111000" />
       <workItem from="1691566366590" duration="7000" />
       <workItem from="1691753550373" duration="36000" />
-      <workItem from="1692099261477" duration="9224000" />
+      <workItem from="1692099261477" duration="11008000" />
+      <workItem from="1692127501549" duration="593000" />
+      <workItem from="1692140700317" duration="3401000" />
+      <workItem from="1692717788601" duration="1462000" />
+      <workItem from="1692719341368" duration="5814000" />
+      <workItem from="1692748616602" duration="28000" />
+      <workItem from="1692753167478" duration="4569000" />
+      <workItem from="1692761178397" duration="3619000" />
     </task>
     <task id="LOCAL-00001" summary="Analizador Lexico armado">
       <created>1692099817997</created>
@@ -81,7 +91,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692106872655</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Analizador Lexico completado">
+      <created>1692110700834</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1692110700834</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -101,7 +118,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Analizador Lexico armado" />
     <MESSAGE value="Analizador Lexico simplificado" />
-    <option name="LAST_COMMIT_MESSAGE" value="Analizador Lexico simplificado" />
+    <MESSAGE value="Analizador Lexico completado" />
+    <option name="LAST_COMMIT_MESSAGE" value="Analizador Lexico completado" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -110,15 +128,6 @@
           <properties class="java.lang.StringIndexOutOfBoundsException" package="java.lang" />
           <option name="timeStamp" value="3" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>3</line>
-          <properties class="Main" method="main">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
