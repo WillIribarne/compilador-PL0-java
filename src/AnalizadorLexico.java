@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class AnalizadorLexico {
+public class AnalizadorLexico { // en los espacios en blanco escanear() devuelve null. Arreglar
     private final BufferedReader br;
     private Terminal s;
     private String cad;
@@ -22,6 +22,8 @@ public class AnalizadorLexico {
             if (restante == null){
                 s = Terminal.EOF;
                 cad = "";
+            } else if (restante.isBlank()){
+                restante = br.readLine();
             } else {
                 s = null;
                 numLinea++;

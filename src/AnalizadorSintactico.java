@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-public class AnalizadorSintactico {
+public class AnalizadorSintactico { //me confundí el getS con el escanear... oops (hay q arreglar practicamente todo)
     private final AnalizadorLexico aLex;
     private IndicadorDeErrores indicadorErrores;
 
