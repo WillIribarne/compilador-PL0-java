@@ -2,10 +2,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class AnalizadorLexico { // en los espacios en blanco escanear() devuelve null. Arreglar
+public class AnalizadorLexico {
     private final BufferedReader br;
     private Terminal s;
     private String cad;
+
     private String listado;
     private String restante;
     private int numLinea;
@@ -16,7 +17,7 @@ public class AnalizadorLexico { // en los espacios en blanco escanear() devuelve
         cargaHashMapNodosTerminales();
     }
 
-    public void escanear() throws IOException {
+    public void scanner() throws IOException {
         if (restante == null || restante.isEmpty()){
             restante = br.readLine();
             if (restante == null){

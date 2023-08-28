@@ -33,5 +33,7 @@ public enum Terminal {
     WRITELN,
     WRITE,
     ABRE_PARENTESIS,
-    CIERRA_PARENTESIS
+    CIERRA_PARENTESIS;
 }
+
+
