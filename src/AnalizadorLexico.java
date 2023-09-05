@@ -6,28 +6,36 @@ public class AnalizadorLexico {
     private final BufferedReader br;
     private Terminal s;
     private String cad;
-
     private String listado;
     private String restante;
-    private int numLinea;
+    private int numLinea = 1;
+    private IndicadorDeErrores indicadorErrores;
     private HashMap<String, Terminal> nodosTerminales;
 
-    public AnalizadorLexico(BufferedReader br) {
+    public AnalizadorLexico(BufferedReader br, IndicadorDeErrores indicadorErrores) {
         this.br = br;
+        this.indicadorErrores = indicadorErrores;
         cargaHashMapNodosTerminales();
     }
 
     public void scanner() throws IOException {
         if (restante == null || restante.isEmpty()){
             restante = br.readLine();
+            if (restante != null){ // borrar luego de testear el analizadorSintactico
+                System.out.println(numLinea + ": " + restante);
+                numLinea++;
+            }
             if (restante == null){
                 s = Terminal.EOF;
                 cad = "";
             } else if (restante.isBlank()){
                 restante = br.readLine();
+                if (restante != null){ // // borrar luego de testear el analizadorSintactico
+                    System.out.println(numLinea + ": " + restante);
+                    numLinea++;
+                }
             } else {
                 s = null;
-                numLinea++;
                 listado = listado + numLinea + ": " + restante + "\n";
             }
         }
@@ -36,7 +44,7 @@ public class AnalizadorLexico {
             StringBuilder sb = new StringBuilder();
             char c = construyeCadYDevuelveChar(sb);
             if (Character.isLetter(c)){
-                while (!restante.isEmpty() && Character.isLetter(restante.charAt(0))){
+                while (!restante.isEmpty() && Character.isLetterOrDigit(restante.charAt(0))){
                     construyeCadYDevuelveChar(sb);
                 }
             } else if (Character.isDigit(c)){
@@ -47,7 +55,9 @@ public class AnalizadorLexico {
                 do {
                     c = construyeCadYDevuelveChar(sb);
                 } while ((!restante.isEmpty() && c != '\''));
-                if (restante.charAt(0) == '\'' && cad.length() > 1){
+                if (restante.isEmpty() && c != '\''){
+                    indicadorErrores.mostrarError(3, null, null);
+                } else if (restante.charAt(0) == '\'' && cad.length() > 1){
                     construyeCadYDevuelveChar(sb);
                 }
             } else if (c == '<'){

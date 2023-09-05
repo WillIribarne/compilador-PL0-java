@@ -4,6 +4,7 @@ public class IndicadorDeErrores { //cada error se identifica con un numero enter
             case -1 -> System.out.println("El programa esta vacío");
             case 1 -> msjError("'[PROGRAMA]'", "'PUNTO'", s, cadenaS);
             case 2 -> msjError("'[PROGRAMA] -> (PUNTO)'", "'EOF'", s, cadenaS);
+            case 3 -> System.out.println("Error en el analizador léxico (no se encuentra el fin de la cadena)");
             case 101 -> msjError("'[BLOQUE] -> (CONST)'", "'IDENTIFICADOR'", s, cadenaS);
             case 102 -> msjError("'[BLOQUE] -> (CONST) -> (IDENTIFICADOR)", "'IGUAL'", s, cadenaS);
             case 103 -> msjError("'[BLOQUE] -> (CONST) -> (IDENTIFICADOR) -> (IGUAL)'", "'NUMERO'", s, cadenaS);

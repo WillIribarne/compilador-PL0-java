@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9997f55b-5b16-4333-a230-cece57a5db86" name="Changes" comment="Correccion Analizador Léxico">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Draft_AnalizadorSintactico.java" afterDir="false" />
+    <list default="true" id="9997f55b-5b16-4333-a230-cece57a5db86" name="Changes" comment="Analizador Sintactico Completado">
+      <change afterPath="$PROJECT_DIR$/src/AnalizadorSemantico.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AnalizadorLexico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnalizadorLexico.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AnalizadorSintactico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnalizadorSintactico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Draft_AnalizadorSintactico.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IdentificadorBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/IdentificadorBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/IndicadorDeErrores.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/IndicadorDeErrores.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Terminal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Terminal.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +89,13 @@
       <workItem from="1692887520268" duration="13948000" />
       <workItem from="1692992883100" duration="1556000" />
       <workItem from="1693236469047" duration="105000" />
-      <workItem from="1693237413174" duration="355000" />
+      <workItem from="1693237413174" duration="615000" />
+      <workItem from="1693308529242" duration="11264000" />
+      <workItem from="1693587354316" duration="77000" />
+      <workItem from="1693789363646" duration="604000" />
+      <workItem from="1693795832655" duration="1115000" />
+      <workItem from="1693913620381" duration="11717000" />
+      <workItem from="1693938942371" duration="1059000" />
     </task>
     <task id="LOCAL-00001" summary="Analizador Lexico armado">
       <created>1692099817997</created>
@@ -119,7 +125,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692802833277</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Analizador Sintactico Completado">
+      <created>1693238023895</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1693238023895</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,7 +154,8 @@
     <MESSAGE value="Analizador Lexico simplificado" />
     <MESSAGE value="Analizador Lexico completado" />
     <MESSAGE value="Correccion Analizador Léxico" />
-    <option name="LAST_COMMIT_MESSAGE" value="Correccion Analizador Léxico" />
+    <MESSAGE value="Analizador Sintactico Completado" />
+    <option name="LAST_COMMIT_MESSAGE" value="Analizador Sintactico Completado" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -152,7 +166,7 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>3</line>
+          <line>5</line>
           <properties class="Main" method="main">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
