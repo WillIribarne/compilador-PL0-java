@@ -19,7 +19,7 @@ public class AnalizadorLexico {
     }
 
     public void scanner() throws IOException {
-        if (restante == null || restante.isEmpty()){
+        if (restante == null || restante.isBlank()){
             restante = br.readLine();
             if (restante != null){ // borrar luego de testear el analizadorSintactico
                 System.out.println(numLinea + ": " + restante);
@@ -29,11 +29,17 @@ public class AnalizadorLexico {
                 s = Terminal.EOF;
                 cad = "";
             } else if (restante.isBlank()){
-                restante = br.readLine();
-                if (restante != null){ // // borrar luego de testear el analizadorSintactico
-                    System.out.println(numLinea + ": " + restante);
-                    numLinea++;
-                }
+                do {
+                    restante = br.readLine();
+                    if (restante != null){ // // borrar luego de testear el analizadorSintactico
+                        System.out.println(numLinea + ": " + restante);
+                        numLinea++;
+                    } else {
+                        s = Terminal.EOF;
+                        cad = "";
+                        break;
+                    }
+                } while (restante.isBlank());
             } else {
                 s = null;
                 listado = listado + numLinea + ": " + restante + "\n";
@@ -42,6 +48,7 @@ public class AnalizadorLexico {
         if (restante != null && !restante.isEmpty()) {
             s = null;
             StringBuilder sb = new StringBuilder();
+            cad = "";
             char c = construyeCadYDevuelveChar(sb);
             if (Character.isLetter(c)){
                 while (!restante.isEmpty() && Character.isLetterOrDigit(restante.charAt(0))){
@@ -143,7 +150,12 @@ public class AnalizadorLexico {
 
     private char construyeCadYDevuelveChar(StringBuilder sb){
         char c = restante.charAt(0);
-        while ((c == ' ' && cad.charAt(0) != '\'') || (c == 9 && cad.charAt(0) != '\'')){
+        while ((c == ' ' || c == 9)){
+            if (cad.length() >= 1){
+                if (cad.charAt(0) != '\''){
+                    break;
+                }
+            }
             cortarRestante();
             c = restante.charAt(0);
         }
