@@ -1,19 +1,17 @@
 public class AnalizadorSemantico { //base + desplazamiento - 1
     private final int maxIdent = 25;
-    private IdentificadorBean tabla[] = new IdentificadorBean[maxIdent];
-    private IndicadorDeErrores indicadorErrores;
-
-    public AnalizadorSemantico(IndicadorDeErrores indicadorErrores) {
-        this.indicadorErrores = indicadorErrores;
-    }
+    private final IdentificadorBean[] tabla = new IdentificadorBean[maxIdent];
 
     public int obtenerIndiceTabla(int inicio, int fin, String nombre){ //fin = base en scope local, o 0 en scope global
         int i = inicio;
         while (i >= fin){
-            if (tabla[i].getNombre() == tabla[inicio].getNombre()){
+            if (tabla[i].getNombre().equals(nombre)){
                 break;
             }
             i--;
+        }
+        if (i < fin){
+            i = -1;
         }
         return i;
     }

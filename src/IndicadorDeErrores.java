@@ -1,6 +1,6 @@
 public class IndicadorDeErrores { //cada error se identifica con un numero entero
     public void mostrarError(int n, Terminal s, String cadenaS){
-        switch (n) { //100 -> errores de [bloque] | 200 -> errores de [proposicion] | 300 -> Errores de [condicion] | 400 -> Errores de [factor]
+        switch (n) { //100 -> errores de [bloque] | 200 -> errores de [proposicion] | 300 -> Errores de [condicion] | 400 -> Errores de [factor] | 500 -> Errores Semanticos
             case -1 -> System.out.println("El programa esta vacío");
             case 1 -> msjError("'[PROGRAMA]'", "'PUNTO'", s, cadenaS);
             case 2 -> msjError("'[PROGRAMA] -> (PUNTO)'", "'EOF'", s, cadenaS);
@@ -28,6 +28,11 @@ public class IndicadorDeErrores { //cada error se identifica con un numero enter
             case 301 -> msjError("'[CONDICION] -> (EXPRESION)'", "'IGUAL' o 'DISTINTO' o 'MENOR' o 'MENOR_IGUAL' o 'MAYOR' o 'MAYOR_IGUAL'", s, cadenaS);
             case 401 -> msjError("'[FACTOR]'", "'IDENTIFICADOR' o 'NUMERO' o 'ABRE_PARENTESIS", s, cadenaS);
             case 402 -> msjError("'[FACTOR] -> (ABRE_PARENTESIS) -> [EXPRESION]'", "'CIERRA_PARENTESIS'", s, cadenaS);
+            case 501 -> System.out.println("El identificador '" + cadenaS + "', de tipo " + s + " ya se encuentra en la tabla");
+            case 502 -> System.out.println("El identificador '" + cadenaS + "' no se encuentra en la tabla");
+            case 503 -> System.out.println("El identificador '" + cadenaS + "' se encuentra en la tabla, pero es de un tipo incompatible (se esperaba 'VAR' y se recibio '" + s + "')");
+            case 504 -> System.out.println("El identificador '" + cadenaS + "' se encuentra en la tabla, pero es de un tipo incompatible (se esperaba 'PROCEDURE' y se recibio '" + s + "')");
+            case 505 -> System.out.println("El identificador '" + cadenaS + "' se encuentra en la tabla, pero es de un tipo incompatible (se esperaba 'VAR' o 'CONST' y se recibio '" + s + "')");
         }
         if (n != -1){
             System.out.println("Compilacion fallida");

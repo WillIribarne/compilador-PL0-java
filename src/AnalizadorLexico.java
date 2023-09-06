@@ -9,7 +9,7 @@ public class AnalizadorLexico {
     private String listado;
     private String restante;
     private int numLinea = 1;
-    private IndicadorDeErrores indicadorErrores;
+    private final IndicadorDeErrores indicadorErrores;
     private HashMap<String, Terminal> nodosTerminales;
 
     public AnalizadorLexico(BufferedReader br, IndicadorDeErrores indicadorErrores) {

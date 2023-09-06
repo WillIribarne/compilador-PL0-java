@@ -3,7 +3,7 @@ import java.io.IOException;
 public class AnalizadorSintactico {
 
     private final AnalizadorLexico aLex;
-    private AnalizadorSemantico aSem;
+    private final AnalizadorSemantico aSem;
     private final IndicadorDeErrores indicadorErrores;
 
     public AnalizadorSintactico(AnalizadorLexico aLex, AnalizadorSemantico aSem, IndicadorDeErrores indicadorErrores) {
@@ -40,12 +40,12 @@ public class AnalizadorSintactico {
         String nombre;
         switch(s){
             case CONST:
-                while (s != Terminal.COMA){
+                while (s != Terminal.PUNTO_Y_COMA){
                     s = usaScannerYDevuelveSimbolo();
                     if (s == Terminal.IDENTIFICADOR){
                         nombre = aLex.getCad();
                         if (aSem.obtenerIndiceTabla(base + desplazamiento - 1, base, nombre) != -1){
-                            //error
+                            indicadorErrores.mostrarError(501, Terminal.CONST, nombre);
                         }
                         s = usaScannerYDevuelveSimbolo();
                         if (s == Terminal.IGUAL){
@@ -73,14 +73,14 @@ public class AnalizadorSintactico {
                 }
             case VAR:
                 if (s == Terminal.VAR){
-                    while (s != Terminal.COMA){
+                    while (s != Terminal.PUNTO_Y_COMA){
                         s = usaScannerYDevuelveSimbolo();
                         if (s == Terminal.IDENTIFICADOR){
                             nombre = aLex.getCad();
                             if (aSem.obtenerIndiceTabla(base + desplazamiento - 1, base, nombre) != -1){
-                                //error
+                                indicadorErrores.mostrarError(501, Terminal.VAR, nombre);
                             }
-                            aSem.guardarEnTabla(base + desplazamiento, nombre, Terminal.CONST, nombre.hashCode());
+                            aSem.guardarEnTabla(base + desplazamiento, nombre, Terminal.VAR, nombre.hashCode());
                             desplazamiento++;
                             s = usaScannerYDevuelveSimbolo();
                             if (s != Terminal.PUNTO_Y_COMA && s != Terminal.COMA){
@@ -101,9 +101,9 @@ public class AnalizadorSintactico {
                     if (s == Terminal.IDENTIFICADOR){
                         nombre = aLex.getCad();
                         if (aSem.obtenerIndiceTabla(base + desplazamiento - 1, base, nombre) != -1){
-                            //error
+                            indicadorErrores.mostrarError(501, Terminal.PROCEDURE, nombre);
                         }
-                        aSem.guardarEnTabla(base + desplazamiento, nombre, Terminal.CONST, nombre.hashCode());
+                        aSem.guardarEnTabla(base + desplazamiento, nombre, Terminal.PROCEDURE, nombre.hashCode());
                         desplazamiento++;
                         s = usaScannerYDevuelveSimbolo();
                         if (s == Terminal.PUNTO_Y_COMA){
@@ -133,16 +133,16 @@ public class AnalizadorSintactico {
         int pos;
         switch(s){
             case IDENTIFICADOR:
+                nombre = aLex.getCad();
+                pos = aSem.obtenerIndiceTabla(base + desplazamiento - 1, 0, nombre);
+                if (pos == -1){
+                    indicadorErrores.mostrarError(502, null, nombre);
+                }
+                if (aSem.obtenerTipo(pos) != Terminal.VAR){
+                    indicadorErrores.mostrarError(503, aSem.obtenerTipo(pos), nombre);
+                }
                 s = usaScannerYDevuelveSimbolo();
                 if (s == Terminal.ASIGNACION){
-                    nombre = aLex.getCad();
-                    pos = aSem.obtenerIndiceTabla(base + desplazamiento - 1, 0, nombre);
-                    if (pos == -1){
-                        //error
-                    }
-                    if (aSem.obtenerTipo(pos) != Terminal.VAR){ // para factor verifica que no sea procedure, pero puede ser var y const
-                        //error
-                    }
                     s = usaScannerYDevuelveSimbolo();
                     s = expresion(base, desplazamiento, s);
                 } else {
@@ -155,10 +155,10 @@ public class AnalizadorSintactico {
                     nombre = aLex.getCad();
                     pos = aSem.obtenerIndiceTabla(base + desplazamiento - 1, 0, nombre);
                     if (pos == -1){
-                        //error
+                        indicadorErrores.mostrarError(502, null, nombre);
                     }
-                    if (aSem.obtenerTipo(pos) != Terminal.PROCEDURE){ // para factor verifica que no sea procedure, pero puede ser var y const
-                        //error
+                    if (aSem.obtenerTipo(pos) != Terminal.PROCEDURE){
+                        indicadorErrores.mostrarError(504, aSem.obtenerTipo(pos), nombre);
                     }
                     s = usaScannerYDevuelveSimbolo();
                 } else {
@@ -206,10 +206,10 @@ public class AnalizadorSintactico {
                         nombre = aLex.getCad();
                         pos = aSem.obtenerIndiceTabla(base + desplazamiento - 1, 0, nombre);
                         if (pos == -1){
-                            //error
+                            indicadorErrores.mostrarError(502, null, nombre);
                         }
-                        if (aSem.obtenerTipo(pos) != Terminal.VAR){ // para factor verifica que no sea procedure, pero puede ser var y const
-                            //error
+                        if (aSem.obtenerTipo(pos) != Terminal.VAR){
+                            indicadorErrores.mostrarError(503, aSem.obtenerTipo(pos), nombre);
                         }
                         s = usaScannerYDevuelveSimbolo();
                         while (s != Terminal.CIERRA_PARENTESIS){
@@ -219,10 +219,10 @@ public class AnalizadorSintactico {
                                     nombre = aLex.getCad();
                                     pos = aSem.obtenerIndiceTabla(base + desplazamiento - 1, 0, nombre);
                                     if (pos == -1){
-                                        //error
+                                        indicadorErrores.mostrarError(502, null, nombre);
                                     }
-                                    if (aSem.obtenerTipo(pos) != Terminal.VAR){ // para factor verifica que no sea procedure, pero puede ser var y const
-                                        //error
+                                    if (aSem.obtenerTipo(pos) != Terminal.VAR){
+                                        indicadorErrores.mostrarError(503, aSem.obtenerTipo(pos), nombre);
                                     }
                                     s = usaScannerYDevuelveSimbolo();
                                 } else {
@@ -321,10 +321,10 @@ public class AnalizadorSintactico {
                 nombre = aLex.getCad();
                 pos = aSem.obtenerIndiceTabla(base + desplazamiento - 1, 0, nombre);
                 if (pos == -1){
-                    //error
+                    indicadorErrores.mostrarError(502, null, nombre);
                 }
-                if (aSem.obtenerTipo(pos) != Terminal.VAR && aSem.obtenerTipo(pos) != Terminal.CONST){ // para factor verifica que no sea procedure, pero puede ser var y const
-                    //error
+                if (aSem.obtenerTipo(pos) != Terminal.VAR && aSem.obtenerTipo(pos) != Terminal.CONST){
+                    indicadorErrores.mostrarError(505, aSem.obtenerTipo(pos), nombre);
                 }
             }
             s = usaScannerYDevuelveSimbolo();

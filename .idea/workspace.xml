@@ -4,7 +4,11 @@
     <list default="true" id="9997f55b-5b16-4333-a230-cece57a5db86" name="Changes" comment="Analizador Sintactico Completado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AnalizadorLexico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnalizadorLexico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AnalizadorSemantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnalizadorSemantico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AnalizadorSintactico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnalizadorSintactico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IndicadorDeErrores.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/IndicadorDeErrores.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Terminal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Terminal.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +94,8 @@
       <workItem from="1693789363646" duration="604000" />
       <workItem from="1693795832655" duration="1115000" />
       <workItem from="1693913620381" duration="11717000" />
-      <workItem from="1693938942371" duration="3661000" />
+      <workItem from="1693938942371" duration="3990000" />
+      <workItem from="1693954993895" duration="4343000" />
     </task>
     <task id="LOCAL-00001" summary="Analizador Lexico armado">
       <created>1692099817997</created>
@@ -161,7 +166,7 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>5</line>
+          <line>3</line>
           <properties class="Main" method="main">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
