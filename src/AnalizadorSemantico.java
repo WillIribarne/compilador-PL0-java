@@ -1,8 +1,13 @@
-public class AnalizadorSemantico { //base + desplazamiento - 1
+public class AnalizadorSemantico {
     private final int maxIdent = 25;
     private final IdentificadorBean[] tabla = new IdentificadorBean[maxIdent];
+    private final IndicadorDeErrores indicadorErrores;
 
-    public int obtenerIndiceTabla(int inicio, int fin, String nombre){ //fin = base en scope local, o 0 en scope global
+    public AnalizadorSemantico(IndicadorDeErrores indicadorErrores) {
+        this.indicadorErrores = indicadorErrores;
+    }
+
+    public int obtenerIndiceTabla(int inicio, int fin, String nombre){
         int i = inicio;
         while (i >= fin){
             if (tabla[i].getNombre().equals(nombre)){
@@ -17,10 +22,14 @@ public class AnalizadorSemantico { //base + desplazamiento - 1
     }
 
     public void guardarEnTabla(int pos, String nombre, Terminal tipo, int valor){
-        tabla[pos] = new IdentificadorBean();
-        tabla[pos].setNombre(nombre);
-        tabla[pos].setTipo(tipo);
-        tabla[pos].setValor(valor);
+        if (pos == maxIdent){
+            indicadorErrores.mostrarError(506, null, null);
+        } else {
+            tabla[pos] = new IdentificadorBean();
+            tabla[pos].setNombre(nombre);
+            tabla[pos].setTipo(tipo);
+            tabla[pos].setValor(valor);
+        }
     }
 
     public Terminal obtenerTipo(int pos){

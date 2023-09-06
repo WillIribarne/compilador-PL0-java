@@ -1,7 +1,6 @@
 public class IndicadorDeErrores { //cada error se identifica con un numero entero
     public void mostrarError(int n, Terminal s, String cadenaS){
-        switch (n) { //100 -> errores de [bloque] | 200 -> errores de [proposicion] | 300 -> Errores de [condicion] | 400 -> Errores de [factor] | 500 -> Errores Semanticos
-            case -1 -> System.out.println("El programa esta vacío");
+        switch (n) { //0 -> Errores Lexicos/de Programa | 100 -> errores de [bloque] | 200 -> errores de [proposicion] | 300 -> Errores de [condicion] | 400 -> Errores de [factor] | 500 -> Errores Semanticos
             case 1 -> msjError("'[PROGRAMA]'", "'PUNTO'", s, cadenaS);
             case 2 -> msjError("'[PROGRAMA] -> (PUNTO)'", "'EOF'", s, cadenaS);
             case 3 -> System.out.println("Error en el analizador léxico (no se encuentra el fin de la cadena)");
@@ -33,6 +32,7 @@ public class IndicadorDeErrores { //cada error se identifica con un numero enter
             case 503 -> System.out.println("El identificador '" + cadenaS + "' se encuentra en la tabla, pero es de un tipo incompatible (se esperaba 'VAR' y se recibio '" + s + "')");
             case 504 -> System.out.println("El identificador '" + cadenaS + "' se encuentra en la tabla, pero es de un tipo incompatible (se esperaba 'PROCEDURE' y se recibio '" + s + "')");
             case 505 -> System.out.println("El identificador '" + cadenaS + "' se encuentra en la tabla, pero es de un tipo incompatible (se esperaba 'VAR' o 'CONST' y se recibio '" + s + "')");
+            case 506 -> System.out.println("Se ha superado la cantidad permitida de IDENTIFICADORES");
         }
         if (n != -1){
             System.out.println("Compilacion fallida");

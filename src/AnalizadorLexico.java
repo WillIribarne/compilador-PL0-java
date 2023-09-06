@@ -15,38 +15,28 @@ public class AnalizadorLexico {
     public AnalizadorLexico(BufferedReader br, IndicadorDeErrores indicadorErrores) {
         this.br = br;
         this.indicadorErrores = indicadorErrores;
+        this.listado = "";
         cargaHashMapNodosTerminales();
     }
 
     public void scanner() throws IOException {
-        if (restante == null || restante.isBlank()){
-            restante = br.readLine();
-            if (restante != null){ // borrar luego de testear el analizadorSintactico
-                System.out.println(numLinea + ": " + restante);
+        if ((restante == null && s != Terminal.EOF) || restante.isBlank()){
+            do {
+                restante = br.readLine();
+                if (restante == null){
+                    break;
+                }
+                //System.out.println(numLinea + ": " + restante); /* linea util para debuggear aSin y aSem */
+                listado = listado + numLinea + ": " + restante + "\n";
                 numLinea++;
-            }
+            } while (restante.isBlank());
+
             if (restante == null){
                 s = Terminal.EOF;
                 cad = "";
-            } else if (restante.isBlank()){
-                do {
-                    restante = br.readLine();
-                    if (restante != null){ // // borrar luego de testear el analizadorSintactico
-                        System.out.println(numLinea + ": " + restante);
-                        numLinea++;
-                    } else {
-                        s = Terminal.EOF;
-                        cad = "";
-                        break;
-                    }
-                } while (restante.isBlank());
-            } else {
-                s = null;
-                listado = listado + numLinea + ": " + restante + "\n";
             }
         }
         if (restante != null && !restante.isEmpty()) {
-            s = null;
             StringBuilder sb = new StringBuilder();
             cad = "";
             char c = construyeCadYDevuelveChar(sb);
@@ -152,7 +142,7 @@ public class AnalizadorLexico {
         char c = restante.charAt(0);
         while ((c == ' ' || c == 9)){
             if (cad.length() >= 1){
-                if (cad.charAt(0) != '\''){
+                if (cad.charAt(0) == '\''){
                     break;
                 }
             }
@@ -163,5 +153,9 @@ public class AnalizadorLexico {
         cad = sb.toString();
         cortarRestante();
         return c;
+    }
+
+    public String getListado(){
+        return listado;
     }
 }
