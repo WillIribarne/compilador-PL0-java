@@ -5,11 +5,15 @@ public class AnalizadorSintactico {
     private final AnalizadorLexico aLex;
     private final AnalizadorSemantico aSem;
     private final IndicadorDeErrores indicadorErrores;
+    private final GeneradorDeCodigo genCod;
+    private int contadorVariablesEnBytes;
 
-    public AnalizadorSintactico(AnalizadorLexico aLex, AnalizadorSemantico aSem, IndicadorDeErrores indicadorErrores) {
+    public AnalizadorSintactico(AnalizadorLexico aLex, AnalizadorSemantico aSem, IndicadorDeErrores indicadorErrores, GeneradorDeCodigo genCod) {
         this.aLex = aLex;
         this.aSem = aSem;
         this.indicadorErrores = indicadorErrores;
+        this.genCod = genCod;
+        this.contadorVariablesEnBytes = 0; //cada vez que se declara una nueva,
     }
 
     public void parser() throws IOException {
@@ -19,6 +23,8 @@ public class AnalizadorSintactico {
     public void programa() throws IOException {
         Terminal s = usaScannerYDevuelveSimbolo();
         if (s != null){
+            genCod.cargarByte(0xBF); //carga BF en 1792
+            genCod.cargarInt(0); //carga 0 en 1793, 94, 95 y 96 = futuramente se va a cambiar por el valor de EDI
             s = bloque(0, s);
         } else {
             indicadorErrores.mostrarError(-1, null, null);
@@ -27,6 +33,7 @@ public class AnalizadorSintactico {
             s = usaScannerYDevuelveSimbolo();
             if (s == Terminal.EOF){
                 compilacionSatisfactoria();
+                genCod.FixUpFinal();
             } else {
                 indicadorErrores.mostrarError(2, s, aLex.getCad());
             }
@@ -80,7 +87,8 @@ public class AnalizadorSintactico {
                             if (aSem.obtenerIndiceTabla(base + desplazamiento - 1, base, nombre) != -1){
                                 indicadorErrores.mostrarError(501, Terminal.VAR, nombre);
                             }
-                            aSem.guardarEnTabla(base + desplazamiento, nombre, Terminal.VAR, nombre.hashCode());
+                            aSem.guardarEnTabla(base + desplazamiento, nombre, Terminal.VAR, contadorVariablesEnBytes);
+                            contadorVariablesEnBytes += 4;
                             desplazamiento++;
                             s = usaScannerYDevuelveSimbolo();
                             if (s != Terminal.PUNTO_Y_COMA && s != Terminal.COMA){

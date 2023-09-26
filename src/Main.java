@@ -8,16 +8,9 @@ public class Main {
             IndicadorDeErrores indicadorErrores = new IndicadorDeErrores();
             AnalizadorLexico aLex = new AnalizadorLexico(br, indicadorErrores);
             AnalizadorSemantico aSem = new AnalizadorSemantico(indicadorErrores);
-            AnalizadorSintactico aSin = new AnalizadorSintactico(aLex, aSem, indicadorErrores);
-
-        /*Terminal s;
-        do {
-            aLex.scanner();
-            s = aLex.getS();
-            System.out.println(s + " " + aLex.getCad());
-        } while (s != Terminal.EOF); */ /* util para debuggear aLex */
-         aSin.parser();
-         
+            GeneradorDeCodigo genaCod = new GeneradorDeCodigo(f.getName(), indicadorErrores, f.getPath());
+            AnalizadorSintactico aSin = new AnalizadorSintactico(aLex, aSem, indicadorErrores, genaCod);
+            //genaCod.volcar(genaCod.getNombre());
 
         } catch (FileNotFoundException e) {
             throw new FileNotFoundException("El archivo no existe");

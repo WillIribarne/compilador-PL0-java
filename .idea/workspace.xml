@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9997f55b-5b16-4333-a230-cece57a5db86" name="Changes" comment="Analizador Sintactico Completado">
+      <change afterPath="$PROJECT_DIR$/src/Constantes/Constantes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GeneradorDeCodigo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pruebas.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AnalizadorLexico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnalizadorLexico.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AnalizadorSemantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnalizadorSemantico.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IndicadorDeErrores.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/IndicadorDeErrores.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AnalizadorSintactico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnalizadorSintactico.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,15 +36,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Usuario/Desktop/Facultad/Programacion/Muestras/sorteador-mvc-java/sorteador-mvc-java&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Usuario/Desktop/Tests - IntelliJ"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
@@ -93,7 +94,13 @@
       <workItem from="1693795832655" duration="1115000" />
       <workItem from="1693913620381" duration="11717000" />
       <workItem from="1693938942371" duration="3990000" />
-      <workItem from="1693954993895" duration="13327000" />
+      <workItem from="1693954993895" duration="13625000" />
+      <workItem from="1694192960516" duration="2000" />
+      <workItem from="1694201364746" duration="255000" />
+      <workItem from="1695123153367" duration="9696000" />
+      <workItem from="1695136099853" duration="118000" />
+      <workItem from="1695655328110" duration="11000" />
+      <workItem from="1695727494976" duration="11658000" />
     </task>
     <task id="LOCAL-00001" summary="Analizador Lexico armado">
       <created>1692099817997</created>
