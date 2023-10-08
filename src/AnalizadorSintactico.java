@@ -288,11 +288,33 @@ public class AnalizadorSintactico {
         if (s == Terminal.ODD){
             s = usaScannerYDevuelveSimbolo();
             s = expresion(base, desplazamiento, s);
+            genCod.cargarByte(0x58);
+            genCod.cargarByte(0xA8);
+            genCod.cargarByte(0x01);
+            genCod.cargarByte(0x7B);
+            genCod.cargarByte(0x05);
+            genCod.cargarByte(0xE9);
+            genCod.cargarInt(0);
         } else {
             s = expresion(base, desplazamiento, s);
             if (s == Terminal.IGUAL || s == Terminal.DISTINTO || s == Terminal.MENOR || s == Terminal.MENOR_IGUAL || s == Terminal.MAYOR || s == Terminal.MAYOR_IGUAL){
+                Terminal signo = s;
                 s = usaScannerYDevuelveSimbolo();
                 s = expresion(base, desplazamiento, s);
+                if (signo == Terminal.IGUAL){
+                    genCod.cargarByte(0x74);
+                } else if (signo == Terminal.DISTINTO){
+                    genCod.cargarByte(0x75);
+                } else if (signo == Terminal.MENOR){
+                    genCod.cargarByte(0x7C);
+                } else if (signo == Terminal.MENOR_IGUAL){
+                    genCod.cargarByte(0x7E);
+                } else if (signo == Terminal.MAYOR){
+                    genCod.cargarByte(0x7F);
+                } else {
+                    genCod.cargarByte(0x7D);
+                }
+                genCod.cargarByte(0x05);
             } else {
                 indicadorErrores.mostrarError(301, s, aLex.getCad());
             }
