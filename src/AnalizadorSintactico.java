@@ -301,13 +301,34 @@ public class AnalizadorSintactico {
     }
 
     private Terminal expresion (int base, int desplazamiento, Terminal s) throws IOException {
+        Terminal signo = null;
         if (s == Terminal.MAS || s == Terminal.MENOS){
+            signo = s;
             s = usaScannerYDevuelveSimbolo();
         }
         s = termino(base, desplazamiento, s);
+        if (signo == Terminal.MENOS){
+            genCod.cargarByte(0x58);
+            genCod.cargarByte(0xF7);
+            genCod.cargarByte(0xD8);
+            genCod.cargarByte(0x50);
+        }
         while (s == Terminal.MENOS || s == Terminal.MAS){
+            signo = s;
             s = usaScannerYDevuelveSimbolo();
             s = termino(base, desplazamiento, s);
+            genCod.cargarByte(0x58);
+            genCod.cargarByte(0x5B);
+            if (signo == Terminal.MENOS){
+                genCod.cargarByte(0x93);
+                genCod.cargarByte(0x29);
+                genCod.cargarByte(0xD8);
+                genCod.cargarByte(0x50);
+            } else {
+                genCod.cargarByte(0x01);
+                genCod.cargarByte(0xD8);
+                genCod.cargarByte(0x50);
+            }
         }
         return s;
     }
