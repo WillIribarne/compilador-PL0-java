@@ -315,8 +315,22 @@ public class AnalizadorSintactico {
     private Terminal termino(int base, int desplazamiento, Terminal s) throws IOException {
         s = factor(base, desplazamiento, s);
         while (s == Terminal.POR || s == Terminal.DIVIDIDO){
+            Terminal signo = s;
             s = usaScannerYDevuelveSimbolo();
             s = factor(base, desplazamiento, s);
+            genCod.cargarByte(0x58);
+            genCod.cargarByte(0x5B);
+            if (signo == Terminal.POR){
+                genCod.cargarByte(0xF7);
+                genCod.cargarByte(0xEB);
+                genCod.cargarByte(0x50);
+            } else {
+                genCod.cargarByte(0x93);
+                genCod.cargarByte(0x99);
+                genCod.cargarByte(0xF7);
+                genCod.cargarByte(0xFB);
+                genCod.cargarByte(0x50);
+            }
         }
         return s;
     }
