@@ -47,7 +47,7 @@ public class GeneradorDeCodigo {
     }
 
     public void FixUpFinal(){ //esto va a llenar el espacio vació en mem[1792] con el EDI
-
+        
     }
 
     public void volcar(){ //agarrar memoria[] y ponerlo en un archivo binario (que es el .exe)

@@ -35,4 +35,7 @@ public class AnalizadorSemantico {
     public Terminal obtenerTipo(int pos){
         return tabla[pos].getTipo();
     }
+    public int obtenerValor(int pos){
+        return tabla[pos].getValor();
+    }
 }

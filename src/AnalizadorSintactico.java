@@ -366,14 +366,13 @@ public class AnalizadorSintactico {
             if (signo == Terminal.POR){
                 genCod.cargarByte(0xF7);
                 genCod.cargarByte(0xEB);
-                genCod.cargarByte(0x50);
             } else {
                 genCod.cargarByte(0x93);
                 genCod.cargarByte(0x99);
                 genCod.cargarByte(0xF7);
                 genCod.cargarByte(0xFB);
-                genCod.cargarByte(0x50);
             }
+            genCod.cargarByte(0x50);
         }
         return s;
     }
@@ -391,6 +390,20 @@ public class AnalizadorSintactico {
                 if (aSem.obtenerTipo(pos) != Terminal.VAR && aSem.obtenerTipo(pos) != Terminal.CONST){
                     indicadorErrores.mostrarError(505, aSem.obtenerTipo(pos), nombre);
                 }
+                if (aSem.obtenerTipo(pos) == Terminal.VAR){
+                    genCod.cargarByte(0xB8);
+                    genCod.cargarInt(aSem.obtenerValor(pos));
+                    genCod.cargarByte(0x50);
+                } else if (aSem.obtenerTipo(pos) == Terminal.CONST){
+                    genCod.cargarByte(0x8B);
+                    genCod.cargarByte(0x87);
+                    genCod.cargarInt(aSem.obtenerValor(pos));
+                    genCod.cargarByte(0x50);
+                }
+            } else {
+                genCod.cargarByte(0xB8);
+                genCod.cargarInt(Integer.parseInt(aLex.getCad()));
+                genCod.cargarByte(0x50);
             }
             s = usaScannerYDevuelveSimbolo();
         } else if (s == Terminal.ABRE_PARENTESIS){

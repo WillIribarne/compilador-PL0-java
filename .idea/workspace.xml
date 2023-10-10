@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="9997f55b-5b16-4333-a230-cece57a5db86" name="Changes" comment="Analizador Sintactico Completado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AnalizadorSemantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnalizadorSemantico.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AnalizadorSintactico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnalizadorSintactico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneradorDeCodigo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneradorDeCodigo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +100,8 @@
       <workItem from="1695655328110" duration="11000" />
       <workItem from="1695727494976" duration="12299000" />
       <workItem from="1695760261917" duration="39000" />
-      <workItem from="1696778004062" duration="3914000" />
+      <workItem from="1696778004062" duration="4613000" />
+      <workItem from="1696937714939" duration="2336000" />
     </task>
     <task id="LOCAL-00001" summary="Analizador Lexico armado">
       <created>1692099817997</created>
